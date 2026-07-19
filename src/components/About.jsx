@@ -33,7 +33,7 @@ export default function About() {
             entire Wirral peninsula.
           </p>
           <p data-rv="up">
-            He&rsquo;s 21, he&rsquo;s dedicated, and the work speaks for
+            He&rsquo;s dedicated, he&rsquo;s driven, and the work speaks for
             itself — every reel on this page is his, filmed on real jobs.
             Clean, tidy, respectful of your home, and never a shortcut on prep.
           </p>
