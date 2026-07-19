@@ -4,6 +4,7 @@ import { useReveal, prefersReducedMotion } from '../lib/useReveal.js'
 import {
   SERVICES_Q, ROOMS_Q, SIZES_Q, TIMING_Q, PRICE_MATRIX,
   EMAIL, PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL,
+  GHL_LOCATION_ID, GHL_FORM_ID, GHL_FORM_ENDPOINT,
 } from '../lib/constants.js'
 import './Estimate.css'
 
@@ -21,7 +22,7 @@ export default function Estimate() {
   const [step, setStep] = useState(0)
   const [ans, setAns] = useState({ type: null, rooms: null, roomsLabel: '', size: null, sizeLabel: '', timing: null })
   const [contact, setContact] = useState({ name: '', phone: '', email: '', postcode: '' })
-  const [sent, setSent] = useState(false)
+  const [sent, setSent] = useState(null) // 'crm' | 'mail' | null
   useReveal(ref)
 
   const est = ans.type && ans.rooms && ans.size ? estimateFor(ans.type, ans.rooms, ans.size) : null
@@ -52,8 +53,33 @@ export default function Estimate() {
     setStep(next)
   }
 
-  const submit = (e) => {
+  const submit = async (e) => {
     e.preventDefault()
+    const summary = [
+      ans.type, ans.roomsLabel, ans.sizeLabel, ans.timing,
+      est ? `guide £${est.min}–£${est.max}` : 'free site visit',
+    ].join(' · ')
+
+    // primary: straight into the CRM
+    try {
+      const [first, ...rest] = contact.name.trim().split(/\s+/)
+      const fd = new FormData()
+      fd.append('formId', GHL_FORM_ID)
+      fd.append('location_id', GHL_LOCATION_ID)
+      fd.append('first_name', first || contact.name)
+      fd.append('last_name', rest.join(' '))
+      fd.append('phone', contact.phone)
+      fd.append('email', contact.email)
+      fd.append('postal_code', contact.postcode)
+      fd.append('estimate_details', summary)
+      const res = await fetch(GHL_FORM_ENDPOINT, { method: 'POST', body: fd })
+      if (!res.ok) throw new Error('submit failed')
+      setSent('crm')
+      return
+    } catch {
+      /* fall through to the email route — no lead is ever lost */
+    }
+
     const lines = [
       'Instant estimate request — from the Wirral Brushworks website',
       '',
@@ -70,7 +96,7 @@ export default function Estimate() {
     ]
     const href = `mailto:${EMAIL}?subject=${encodeURIComponent(`Estimate request — ${contact.name} (${contact.postcode})`)}&body=${encodeURIComponent(lines.join('\n'))}`
     window.location.href = href
-    setSent(true)
+    setSent('mail')
   }
 
   const restart = () => {
@@ -101,10 +127,11 @@ export default function Estimate() {
 
           {sent ? (
             <div className="est__pane est__done">
-              <h3>Nearly there — press send</h3>
+              <h3>{sent === 'crm' ? 'Sent — we’ve got it' : 'Nearly there — press send'}</h3>
               <p>
-                Your email app has opened with everything filled in. Press send and
-                we&rsquo;ll come back to you to arrange a free visit.
+                {sent === 'crm'
+                  ? 'Your estimate request is with us. We’ll be in touch shortly to arrange a free visit.'
+                  : 'Your email app has opened with everything filled in. Press send and we’ll come back to you to arrange a free visit.'}
               </p>
               <p className="est__alt">
                 Prefer to talk? Call <a href={PHONE_TEL}>{PHONE_DISPLAY}</a> —

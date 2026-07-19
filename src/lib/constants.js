@@ -3,6 +3,12 @@
 
 export const PHONE_DISPLAY = '07521 176717'
 export const PHONE_TEL = 'tel:07521176717'
+// GHL lead capture — the estimate wizard submits into this form, so every
+// lead lands in the CRM with an opportunity + notification
+export const GHL_LOCATION_ID = 'Cf9bkc6XeEUsIGWRwVEi'
+export const GHL_FORM_ID = '3JCVKrFqAxSUopBqwmSV'
+export const GHL_FORM_ENDPOINT = 'https://backend.leadconnectorhq.com/forms/submit'
+
 export const WHATSAPP_URL =
   'https://wa.me/447521176717?text=' +
   encodeURIComponent("Hi, I'd like a quote for some decorating work.")
