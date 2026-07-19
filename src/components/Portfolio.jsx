@@ -115,6 +115,64 @@ function ProjectFrame({ project }) {
   )
 }
 
+/*
+ * Reels filmed on Reece's actual jobs — genuine footage only.
+ * portrait = 9:16 card, landscape spans two columns.
+ */
+const REELS = [
+  { src: '/reels/r2.mp4', poster: '/reels/r2.jpg', portrait: true, label: 'Hallway — panelling, fresh walls & woodwork' },
+  { src: '/reels/r4.mp4', poster: '/reels/r4.jpg', portrait: true, label: 'Staircase — deep teal, crisp white spindles' },
+  { src: '/reels/r9.mp4', poster: '/reels/r9.jpg', portrait: true, label: 'Landing — sage green over dado panelling' },
+  { src: '/reels/r5.mp4', poster: '/reels/r5.jpg', portrait: true, label: 'Landing — wallpaper & glass balustrade' },
+  { src: '/reels/r6.mp4', poster: '/reels/r6.jpg', portrait: false, label: 'Exterior — garage doors & front door' },
+  { src: '/reels/r3.mp4', poster: '/reels/r3.jpg', portrait: false, label: 'Bedroom — finished in a warm neutral' },
+  { src: '/reels/r7.mp4', poster: '/reels/r7.jpg', portrait: true, label: 'Mid-job — stairs prepped & protected' },
+  { src: '/reels/r1.mp4', poster: '/reels/r1.jpg', portrait: true, label: 'Prep — fresh plaster, ready to decorate' },
+  { src: '/reels/r8.mp4', poster: '/reels/r8.jpg', portrait: true, label: 'Exterior — fascias & stonework' },
+]
+
+function Reel({ reel }) {
+  const vidRef = useRef(null)
+
+  useEffect(() => {
+    const vid = vidRef.current
+    if (!vid) return
+    if (prefersReducedMotion()) return // tap to play instead
+    const io = new IntersectionObserver(
+      ([e]) => {
+        if (e.isIntersecting) vid.play().catch(() => {})
+        else vid.pause()
+      },
+      { threshold: 0.35 }
+    )
+    io.observe(vid)
+    return () => io.disconnect()
+  }, [])
+
+  const toggle = () => {
+    const vid = vidRef.current
+    if (!vid) return
+    if (vid.paused) vid.play().catch(() => {})
+    else vid.pause()
+  }
+
+  return (
+    <figure className={`reel ${reel.portrait ? '' : 'reel--wide'}`} onClick={toggle}>
+      <video
+        ref={vidRef}
+        src={reel.src}
+        poster={reel.poster}
+        muted
+        loop
+        playsInline
+        preload="metadata"
+        aria-label={reel.label}
+      />
+      <figcaption>{reel.label}</figcaption>
+    </figure>
+  )
+}
+
 export default function Portfolio() {
   const ref = useRef(null)
   useReveal(ref)
@@ -139,6 +197,19 @@ export default function Portfolio() {
             <a className="btn btn-ghost" href="#estimate" data-rv="up">
               Start yours <span className="arrow" aria-hidden="true">→</span>
             </a>
+          </div>
+        </div>
+
+        {/* ---- straight from the jobs: real reels, filmed on site ---- */}
+        <div className="folio__reels">
+          <h3 data-rv="up">Straight from the jobs</h3>
+          <p className="folio__reelsub" data-rv="up">
+            Filmed on site, on real jobs — prep and all.
+          </p>
+          <div className="folio__reelgrid" data-rv="stagger">
+            {REELS.map((r) => (
+              <Reel reel={r} key={r.src} />
+            ))}
           </div>
         </div>
       </div>
