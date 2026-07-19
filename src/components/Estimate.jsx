@@ -3,7 +3,7 @@ import { gsap } from 'gsap'
 import { useReveal, prefersReducedMotion } from '../lib/useReveal.js'
 import {
   SERVICES_Q, ROOMS_Q, SIZES_Q, TIMING_Q, PRICE_MATRIX,
-  EMAIL, PHONE_DISPLAY, PHONE_TEL,
+  EMAIL, PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL,
 } from '../lib/constants.js'
 import './Estimate.css'
 
@@ -106,7 +106,10 @@ export default function Estimate() {
                 we&rsquo;ll come back to you to arrange a free visit.
               </p>
               <p className="est__alt">
-                Prefer to talk? Call <a href={PHONE_TEL}>{PHONE_DISPLAY}</a>.
+                Prefer to talk? Call <a href={PHONE_TEL}>{PHONE_DISPLAY}</a> —
+                or <a href={WHATSAPP_URL} target="_blank" rel="noreferrer">WhatsApp us</a>,
+                and send a photo of the room while you&rsquo;re at it. It helps
+                us give you a sharper price.
               </p>
               <button className="btn btn-ghost est__restart" type="button" onClick={restart}>
                 Start another estimate

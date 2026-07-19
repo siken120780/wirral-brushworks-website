@@ -3,6 +3,9 @@
 
 export const PHONE_DISPLAY = '07521 176717'
 export const PHONE_TEL = 'tel:07521176717'
+export const WHATSAPP_URL =
+  'https://wa.me/447521176717?text=' +
+  encodeURIComponent("Hi, I'd like a quote for some decorating work.")
 export const EMAIL = 'hello@wirralbrushworks.co.uk'
 
 export const HOURS = [

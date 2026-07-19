@@ -1,0 +1,70 @@
+.wa {
+  position: fixed;
+  right: clamp(1rem, 2.5vw, 1.6rem);
+  bottom: clamp(1rem, 2.5vw, 1.6rem);
+  z-index: 90; /* under the intro overlay, above everything else */
+  display: flex;
+  align-items: center;
+  gap: 0.7rem;
+  text-decoration: none;
+}
+
+.wa__btn {
+  display: grid;
+  place-items: center;
+  width: 58px;
+  height: 58px;
+  border-radius: 50%;
+  background: #25d366;
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.35),
+    0 14px 34px -10px rgba(37, 211, 102, 0.55);
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.wa:hover .wa__btn {
+  transform: translateY(-3px) scale(1.05);
+  box-shadow:
+    0 6px 14px rgba(0, 0, 0, 0.4),
+    0 18px 40px -10px rgba(37, 211, 102, 0.7);
+}
+
+.wa__label {
+  font-family: var(--font-display);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--white);
+  background: rgba(18, 17, 20, 0.92);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.5rem 0.95rem;
+  opacity: 0;
+  transform: translateX(6px);
+  transition: opacity 0.3s ease, transform 0.3s ease;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.wa:hover .wa__label,
+.wa:focus-visible .wa__label {
+  opacity: 1;
+  transform: translateX(0);
+}
+
+@media (max-width: 640px) {
+  .wa__btn {
+    width: 54px;
+    height: 54px;
+  }
+
+  .wa__label {
+    display: none; /* tap targets only on mobile */
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .wa__btn,
+  .wa__label {
+    transition: none;
+  }
+}

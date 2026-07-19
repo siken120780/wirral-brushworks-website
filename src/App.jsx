@@ -11,6 +11,7 @@ import About from './components/About.jsx'
 import FinalCta from './components/FinalCta.jsx'
 import Footer from './components/Footer.jsx'
 import Tape from './components/Tape.jsx'
+import WhatsApp from './components/WhatsApp.jsx'
 import { prefersReducedMotion } from './lib/useReveal.js'
 
 const seenThisSession = (() => {
@@ -53,6 +54,7 @@ export default function App() {
         <FinalCta />
       </main>
       <Footer />
+      <WhatsApp />
     </>
   )
 }
