@@ -1,0 +1,166 @@
+.hero {
+  position: relative;
+  min-height: 92vh;
+  display: flex;
+  align-items: center;
+  padding: clamp(7rem, 14vh, 9rem) 0 clamp(3.5rem, 7vh, 5rem);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/* the wall before painting — bare plaster tone, kept dark enough to sit
+   in the brand world */
+.hero__undercoat {
+  position: absolute;
+  inset: 0;
+  z-index: -3;
+  background:
+    radial-gradient(120% 90% at 78% 8%, rgba(200, 190, 178, 0.16), transparent 60%),
+    #1c1b19;
+}
+
+/* the finished wall — deep charcoal with the faint sheen of roller bands */
+.hero__coat {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(110% 85% at 80% 0%, rgba(255, 0, 145, 0.07), transparent 55%),
+    repeating-linear-gradient(
+      90deg,
+      rgba(250, 250, 250, 0.012) 0 90px,
+      rgba(250, 250, 250, 0.03) 90px 180px
+    ),
+    linear-gradient(180deg, #100e0d 0%, var(--warm-black) 55%, var(--coal) 100%);
+}
+
+/* the roller's leading edge during the opening pass */
+.hero__roller {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -4%;
+  width: 3px;
+  z-index: -1;
+  background: linear-gradient(180deg, transparent, rgba(255, 0, 145, 0.75) 30%, rgba(255, 0, 145, 0.75) 70%, transparent);
+  box-shadow: 0 0 26px 2px rgba(255, 0, 145, 0.35);
+}
+
+/* a strip of the five brand colours along the very top — the mark the
+   splash left behind */
+.hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  z-index: 2;
+  background: linear-gradient(
+    90deg,
+    var(--pink), var(--orange), var(--green), var(--blue), var(--purple)
+  );
+}
+
+/* soft colour drifting on the wall */
+.hero__glow {
+  position: absolute;
+  z-index: -1;
+  width: 42vw;
+  height: 42vw;
+  max-width: 640px;
+  max-height: 640px;
+  border-radius: 50%;
+  filter: blur(90px);
+  pointer-events: none;
+  animation: heroFloat 26s ease-in-out infinite alternate;
+}
+
+.hero__glow--pink {
+  top: -12%;
+  right: -6%;
+  background: radial-gradient(closest-side, rgba(255, 0, 145, 0.22), transparent);
+}
+
+.hero__glow--blue {
+  bottom: -18%;
+  left: -10%;
+  background: radial-gradient(closest-side, rgba(60, 131, 246, 0.17), transparent);
+  animation-delay: -13s;
+}
+
+@keyframes heroFloat {
+  from { transform: translate3d(0, 0, 0) scale(1); }
+  to { transform: translate3d(-6vw, 5vh, 0) scale(1.18); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero__glow {
+    animation: none;
+  }
+}
+
+.hero__inner {
+  max-width: 60rem;
+}
+
+.hero__title {
+  display: flex;
+  flex-direction: column;
+}
+
+.hero__line {
+  display: block;
+}
+
+.hero__line > span {
+  display: inline-block;
+  padding-right: 0.08em; /* keep italic overhang inside the clip */
+}
+
+.hero__line em {
+  font-style: normal;
+  color: var(--pink);
+}
+
+.hero__sub {
+  max-width: 34rem;
+  margin-top: 1.6rem;
+  font-size: clamp(1.05rem, 1.4vw, 1.2rem);
+  color: #c8c8cf;
+}
+
+.hero__ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 2.2rem;
+}
+
+.hero__ticks {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.6rem;
+  list-style: none;
+  margin-top: clamp(2.5rem, 6vh, 4rem);
+}
+
+.hero__ticks li {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: #d8d8de;
+  white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+  .hero {
+    min-height: 88vh;
+  }
+
+  .hero__ticks {
+    gap: 0.6rem 1.1rem;
+  }
+}

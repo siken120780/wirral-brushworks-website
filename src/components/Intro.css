@@ -1,0 +1,49 @@
+.intro {
+  position: fixed;
+  inset: 0;
+  z-index: 999;
+  /* solid until the stroke begins — then the scene lives on the canvas and
+     the painted stroke punches through it to the site */
+  background: #070606;
+  overflow: hidden;
+}
+
+.intro__canvas {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.intro__caption {
+  position: absolute;
+  left: 50%;
+  top: calc(44% + clamp(72px, 13vh, 120px));
+  transform: translateX(-50%);
+  font-family: var(--font-body);
+  font-size: clamp(0.66rem, 1vw, 0.8rem);
+  font-weight: 600;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: rgba(241, 236, 226, 0.72);
+  white-space: nowrap;
+}
+
+.intro__skip {
+  position: absolute;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  color: rgba(250, 250, 250, 0.7);
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  padding: 0.55rem 1rem;
+  border-radius: 999px;
+  transition: color 0.25s, border-color 0.25s;
+}
+
+.intro__skip:hover {
+  color: #fff;
+  border-color: rgba(255, 255, 255, 0.45);
+}

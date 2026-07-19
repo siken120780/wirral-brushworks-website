@@ -1,0 +1,56 @@
+.foot {
+  border-top: 1px solid var(--line);
+  padding-top: clamp(2.5rem, 5vw, 4rem);
+  background: var(--coal);
+}
+
+.foot__grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(0, 1fr) minmax(0, 1fr);
+  gap: clamp(2rem, 5vw, 4rem);
+  padding-bottom: clamp(2rem, 4vw, 3rem);
+}
+
+.foot__brand p {
+  margin-top: 1rem;
+  max-width: 22rem;
+  font-size: 0.94rem;
+}
+
+.foot__col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.foot__col h4 {
+  font-size: 0.85rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin-bottom: 0.5rem;
+  color: var(--white);
+}
+
+.foot__col a,
+.foot__col span {
+  color: var(--grey);
+  text-decoration: none;
+  font-size: 0.94rem;
+}
+
+.foot__col a:hover {
+  color: var(--pink);
+}
+
+.foot__base {
+  border-top: 1px solid var(--line);
+  padding: 1.2rem 0 1.4rem;
+  font-size: 0.84rem;
+  color: #77777f;
+}
+
+@media (max-width: 720px) {
+  .foot__grid {
+    grid-template-columns: 1fr;
+  }
+}
