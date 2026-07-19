@@ -1,8 +1,8 @@
 // Everything here is taken verbatim from the existing Wirral Brushworks
 // preview site — see /home/claude/brushworks/AUDIT.md
 
-export const PHONE_DISPLAY = '0151 000 0000' // placeholder on the existing site — flagged to Simon
-export const PHONE_TEL = 'tel:01510000000'
+export const PHONE_DISPLAY = '07521 176717'
+export const PHONE_TEL = 'tel:07521176717'
 export const EMAIL = 'hello@wirralbrushworks.co.uk'
 
 export const HOURS = [
