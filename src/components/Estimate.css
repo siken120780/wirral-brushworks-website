@@ -170,21 +170,37 @@
 .est__formlead {
   font-size: 0.95rem;
   color: var(--grey);
-  margin-bottom: 1rem;
+  margin: 1.4rem 0 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
 }
 
-/* white card so GHL's embedded form reads as a deliberate panel */
+.est__formlead::before {
+  content: '';
+  width: 1.4rem;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--pink);
+  flex: 0 0 auto;
+}
+
+/* a clean, deliberate "quote card" holding the GHL form */
 .est__formwrap {
   background: #ffffff;
-  border-radius: 12px;
-  padding: 0.4rem;
-  overflow: hidden;
+  border-radius: 14px;
+  padding: clamp(0.6rem, 2vw, 1.1rem);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow:
+    0 2px 6px rgba(0, 0, 0, 0.3),
+    0 30px 70px -30px rgba(0, 0, 0, 0.7);
 }
 
 .est__ghl {
   display: block;
   width: 100%;
-  min-height: 460px;
+  min-height: 300px;
+  border-radius: 8px;
 }
 
 .est__fields {
