@@ -4,7 +4,7 @@ import { useReveal, prefersReducedMotion } from '../lib/useReveal.js'
 import {
   SERVICES_Q, ROOMS_Q, SIZES_Q, TIMING_Q, PRICE_MATRIX,
   EMAIL, PHONE_DISPLAY, PHONE_TEL, WHATSAPP_URL,
-  GHL_LOCATION_ID, GHL_FORM_ID, GHL_FORM_ENDPOINT,
+  WEB3FORMS_KEY, WEB3FORMS_ENDPOINT,
 } from '../lib/constants.js'
 import './Estimate.css'
 
@@ -55,25 +55,30 @@ export default function Estimate() {
 
   const submit = async (e) => {
     e.preventDefault()
-    const summary = [
-      ans.type, ans.roomsLabel, ans.sizeLabel, ans.timing,
-      est ? `guide £${est.min}–£${est.max}` : 'free site visit',
-    ].join(' · ')
+    const guide = est ? `£${est.min} – £${est.max}` : 'Free site visit needed'
 
-    // primary: straight into the CRM
+    // primary: send the quote straight to Reece, server-side (no mail app)
     try {
-      const [first, ...rest] = contact.name.trim().split(/\s+/)
-      const fd = new FormData()
-      fd.append('formId', GHL_FORM_ID)
-      fd.append('location_id', GHL_LOCATION_ID)
-      fd.append('first_name', first || contact.name)
-      fd.append('last_name', rest.join(' '))
-      fd.append('phone', contact.phone)
-      fd.append('email', contact.email)
-      fd.append('postal_code', contact.postcode)
-      fd.append('estimate_details', summary)
-      const res = await fetch(GHL_FORM_ENDPOINT, { method: 'POST', body: fd })
-      if (!res.ok) throw new Error('submit failed')
+      const res = await fetch(WEB3FORMS_ENDPOINT, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          access_key: WEB3FORMS_KEY,
+          subject: `New estimate request — ${contact.name} (${contact.postcode})`,
+          from_name: 'Wirral Brushworks website',
+          Name: contact.name,
+          Phone: contact.phone,
+          Email: contact.email,
+          Postcode: contact.postcode,
+          Job: ans.type,
+          'Rooms / areas': ans.roomsLabel,
+          'Rough size': ans.sizeLabel,
+          Timing: ans.timing,
+          'Guide price shown': guide,
+        }),
+      })
+      const data = await res.json().catch(() => ({}))
+      if (!res.ok || !data.success) throw new Error('submit failed')
       setSent('crm')
       return
     } catch {
@@ -130,7 +135,7 @@ export default function Estimate() {
               <h3>{sent === 'crm' ? 'Sent — we’ve got it' : 'Nearly there — press send'}</h3>
               <p>
                 {sent === 'crm'
-                  ? 'Your estimate request is with us. We’ll be in touch shortly to arrange a free visit.'
+                  ? 'Your estimate request has been sent straight through to us. We’ll be in touch shortly to arrange a free visit.'
                   : 'Your email app has opened with everything filled in. Press send and we’ll come back to you to arrange a free visit.'}
               </p>
               <p className="est__alt">

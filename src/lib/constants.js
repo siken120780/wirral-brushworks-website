@@ -3,11 +3,10 @@
 
 export const PHONE_DISPLAY = '07521 176717'
 export const PHONE_TEL = 'tel:07521176717'
-// GHL lead capture — the estimate wizard submits into this form, so every
-// lead lands in the CRM with an opportunity + notification
-export const GHL_LOCATION_ID = 'Cf9bkc6XeEUsIGWRwVEi'
-export const GHL_FORM_ID = '3JCVKrFqAxSUopBqwmSV'
-export const GHL_FORM_ENDPOINT = 'https://backend.leadconnectorhq.com/forms/submit'
+// Lead capture — the estimate wizard sends the quote straight through to
+// Reece via Web3Forms (free, server-side, no email app needed)
+export const WEB3FORMS_KEY = '57de3772-26bc-4fc8-bed7-d1f46738d08b'
+export const WEB3FORMS_ENDPOINT = 'https://api.web3forms.com/submit'
 
 export const WHATSAPP_URL =
   'https://wa.me/447521176717?text=' +
