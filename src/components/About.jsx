@@ -25,16 +25,17 @@ export default function About() {
       <div className="wrap about__grid">
         <div className="about__copy">
           <p className="eyebrow" data-rv="up">Behind the brush</p>
-          <h2 data-rv="mask">Local, professional, house-proud</h2>
+          <h2 data-rv="mask">Meet Reece</h2>
           <p data-rv="up">
-            Wirral Brushworks is a professional painting and decorating business
-            serving the entire Wirral peninsula — interior and exterior painting,
-            wallpapering and full redecoration.
+            Wirral Brushworks is Reece — a decorator building his name the only
+            way that lasts: on standards, graft and word of mouth. Interior and
+            exterior painting, wallpapering and full redecoration, across the
+            entire Wirral peninsula.
           </p>
           <p data-rv="up">
-            Every job runs on the same standards: turn up when we say we will,
-            protect and prep properly, keep the place clean and tidy, and leave
-            a finish with no shortcuts in it.
+            He&rsquo;s 21, he&rsquo;s dedicated, and the work speaks for
+            itself — every reel on this page is his, filmed on real jobs.
+            Clean, tidy, respectful of your home, and never a shortcut on prep.
           </p>
           <dl className="about__hours" data-rv="up">
             {HOURS.map(([d, h]) => (
