@@ -12,15 +12,14 @@ const TICKS = [
   ['Local & Trusted', 'var(--pink)'],
 ]
 
+const reduced = typeof window !== 'undefined' && prefersReducedMotion()
+const mobile = typeof window !== 'undefined' && window.innerWidth < 640
+
 export default function Hero() {
   const ref = useRef(null)
 
   useEffect(() => {
-    if (prefersReducedMotion()) {
-      // no roller pass — show the finished wall, fully painted
-      ref.current.querySelectorAll('.hero__undercoat, .hero__roller').forEach((el) => el.remove())
-      return
-    }
+    if (prefersReducedMotion()) return
     let ctx = null
     let started = false
     let safety = null
@@ -31,38 +30,24 @@ export default function Hero() {
     }
     const buildTimeline = () => gsap.context(() => {
       const tl = gsap.timeline({ defaults: { ease: 'power2.inOut' } })
-      // one clean roller pass: the undercoat is covered by the finished wall
+      // headline lines appear like brush strokes over the footage
       tl.fromTo(
-        '.hero__roller',
-        { left: '-4%' },
-        { left: '104%', duration: 1.15, ease: 'power2.inOut' },
-        0.15
+        '.hero__line > span',
+        { clipPath: 'inset(0 100% 0 0)' },
+        { clipPath: 'inset(0 -2% 0 0)', duration: 0.75, stagger: 0.16, ease: 'power2.out' },
+        0.2
       )
-        .fromTo(
-          '.hero__coat',
-          { clipPath: 'inset(0 100% 0 0)' },
-          { clipPath: 'inset(0 -2% 0 0)', duration: 1.15, ease: 'power2.inOut' },
-          0.15
-        )
-        .set('.hero__roller', { autoAlpha: 0 })
-        // headline lines appear like brush strokes
-        .fromTo(
-          '.hero__line > span',
-          { clipPath: 'inset(0 100% 0 0)' },
-          { clipPath: 'inset(0 -2% 0 0)', duration: 0.75, stagger: 0.16, ease: 'power2.out' },
-          0.95
-        )
         .fromTo(
           '.hero__sub, .hero__ctas',
           { opacity: 0, y: 26 },
           { opacity: 1, y: 0, duration: 0.8, stagger: 0.12, ease: 'power3.out' },
-          1.7
+          0.95
         )
         .fromTo(
           '.hero__ticks li',
           { opacity: 0, y: 14 },
           { opacity: 1, y: 0, duration: 0.55, stagger: 0.07, ease: 'power2.out' },
-          2.05
+          1.3
         )
     }, ref)
 
@@ -92,13 +77,22 @@ export default function Hero() {
 
   return (
     <section className="hero" id="top" ref={ref}>
-      {/* undercoat wall (visible for a beat before the coat sweeps over it) */}
-      <div className="hero__undercoat" aria-hidden="true" />
-      {/* finished wall, revealed by the roller pass */}
+      {/* the wall — static base, with real job footage playing over it */}
       <div className="hero__coat" aria-hidden="true" />
-      <div className="hero__roller" aria-hidden="true">
-        <span className="hero__roller-head" />
-      </div>
+      {!reduced && (
+        <video
+          className="hero__video"
+          src={mobile ? '/reels/r2.mp4' : '/reels/r3.mp4'}
+          poster={mobile ? '/reels/r2.jpg' : '/reels/r3.jpg'}
+          muted
+          loop
+          autoPlay
+          playsInline
+          preload="auto"
+          aria-hidden="true"
+        />
+      )}
+      <div className="hero__shade" aria-hidden="true" />
       {/* ambient colour drifting on the wall */}
       <div className="hero__glow hero__glow--pink" aria-hidden="true" />
       <div className="hero__glow hero__glow--blue" aria-hidden="true" />
