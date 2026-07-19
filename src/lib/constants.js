@@ -6,7 +6,7 @@ export const PHONE_TEL = 'tel:07521176717'
 export const WHATSAPP_URL =
   'https://wa.me/447521176717?text=' +
   encodeURIComponent("Hi, I'd like a quote for some decorating work.")
-export const EMAIL = 'reece2052@hotmail.com'
+export const EMAIL = 'hello@wirralbrushworks.co.uk'
 
 export const HOURS = [
   ['Mon – Fri', '8am – 6pm'],
