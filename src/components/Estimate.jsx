@@ -20,7 +20,7 @@ export default function Estimate() {
   const priceRef = useRef(null)
   const [step, setStep] = useState(0)
   const [ans, setAns] = useState({ type: null, rooms: null, roomsLabel: '', size: null, sizeLabel: '', timing: null })
-  const [contact, setContact] = useState({ name: '', phone: '', postcode: '' })
+  const [contact, setContact] = useState({ name: '', phone: '', email: '', postcode: '' })
   const [sent, setSent] = useState(false)
   useReveal(ref)
 
@@ -65,6 +65,7 @@ export default function Estimate() {
       '',
       `Name: ${contact.name}`,
       `Phone: ${contact.phone}`,
+      `Email: ${contact.email}`,
       `Postcode: ${contact.postcode}`,
     ]
     const href = `mailto:${EMAIL}?subject=${encodeURIComponent(`Estimate request — ${contact.name} (${contact.postcode})`)}&body=${encodeURIComponent(lines.join('\n'))}`
@@ -203,6 +204,14 @@ export default function Estimate() {
                       autoComplete="tel"
                       value={contact.phone}
                       onChange={(e) => setContact({ ...contact, phone: e.target.value })}
+                    />
+                    <input
+                      required
+                      type="email"
+                      placeholder="Email Address"
+                      autoComplete="email"
+                      value={contact.email}
+                      onChange={(e) => setContact({ ...contact, email: e.target.value })}
                     />
                     <input
                       required
