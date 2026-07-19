@@ -167,6 +167,26 @@
   color: var(--grey);
 }
 
+.est__formlead {
+  font-size: 0.95rem;
+  color: var(--grey);
+  margin-bottom: 1rem;
+}
+
+/* white card so GHL's embedded form reads as a deliberate panel */
+.est__formwrap {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 0.4rem;
+  overflow: hidden;
+}
+
+.est__ghl {
+  display: block;
+  width: 100%;
+  min-height: 460px;
+}
+
 .est__fields {
   display: grid;
   gap: 0.7rem;
