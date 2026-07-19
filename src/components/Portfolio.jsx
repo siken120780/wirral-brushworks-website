@@ -120,13 +120,12 @@ function ProjectFrame({ project }) {
  * portrait = 9:16 card, landscape spans two columns.
  */
 const REELS = [
+  /* r4 + r7 live in the See the Difference section — not repeated here */
   { src: '/reels/r2.mp4', poster: '/reels/r2.jpg', portrait: true, label: 'Hallway — panelling, fresh walls & woodwork' },
-  { src: '/reels/r4.mp4', poster: '/reels/r4.jpg', portrait: true, label: 'Staircase — deep teal, crisp white spindles' },
   { src: '/reels/r9.mp4', poster: '/reels/r9.jpg', portrait: true, label: 'Landing — sage green over dado panelling' },
   { src: '/reels/r5.mp4', poster: '/reels/r5.jpg', portrait: true, label: 'Landing — wallpaper & glass balustrade' },
   { src: '/reels/r6.mp4', poster: '/reels/r6.jpg', portrait: false, label: 'Exterior — garage doors & front door' },
   { src: '/reels/r3.mp4', poster: '/reels/r3.jpg', portrait: false, label: 'Bedroom — finished in a warm neutral' },
-  { src: '/reels/r7.mp4', poster: '/reels/r7.jpg', portrait: true, label: 'Mid-job — stairs prepped & protected' },
   { src: '/reels/r1.mp4', poster: '/reels/r1.jpg', portrait: true, label: 'Prep — fresh plaster, ready to decorate' },
   { src: '/reels/r8.mp4', poster: '/reels/r8.jpg', portrait: true, label: 'Exterior — fascias & stonework' },
 ]
