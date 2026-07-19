@@ -116,18 +116,38 @@ function ProjectFrame({ project }) {
 }
 
 /*
- * Reels filmed on Reece's actual jobs — genuine footage only.
- * portrait = 9:16 card, landscape spans two columns.
+ * Reels filmed on Reece's actual jobs — genuine footage only, grouped by
+ * job (pairings confirmed by the client). r4 + r7 live in See the
+ * Difference and aren't repeated here.
  */
-const REELS = [
-  /* r4 + r7 live in the See the Difference section — not repeated here */
-  { src: '/reels/r2.mp4', poster: '/reels/r2.jpg', portrait: true, label: 'Hallway — panelling, fresh walls & woodwork' },
-  { src: '/reels/r9.mp4', poster: '/reels/r9.jpg', portrait: true, label: 'Landing — sage green over dado panelling' },
-  { src: '/reels/r5.mp4', poster: '/reels/r5.jpg', portrait: true, label: 'Landing — wallpaper & glass balustrade' },
-  { src: '/reels/r6.mp4', poster: '/reels/r6.jpg', portrait: false, label: 'Exterior — garage doors & front door' },
-  { src: '/reels/r3.mp4', poster: '/reels/r3.jpg', portrait: false, label: 'Bedroom — finished in a warm neutral' },
-  { src: '/reels/r1.mp4', poster: '/reels/r1.jpg', portrait: true, label: 'Prep — fresh plaster, ready to decorate' },
-  { src: '/reels/r8.mp4', poster: '/reels/r8.jpg', portrait: true, label: 'Exterior — fascias & stonework' },
+const JOBS = [
+  {
+    title: 'Bedroom — fresh plaster to finished',
+    reels: [
+      { src: '/reels/r1.mp4', poster: '/reels/r1.jpg', portrait: true, tag: 'Before', tone: 'before' },
+      { src: '/reels/r3.mp4', poster: '/reels/r3.jpg', portrait: false, tag: 'After', tone: 'after' },
+    ],
+  },
+  {
+    title: 'Hallway & landing — one job, both finished',
+    reels: [
+      { src: '/reels/r2.mp4', poster: '/reels/r2.jpg', portrait: true, tag: 'Hallway' },
+      { src: '/reels/r9.mp4', poster: '/reels/r9.jpg', portrait: true, tag: 'Landing' },
+    ],
+  },
+  {
+    title: 'Exterior — doors, fascias & stonework, one job',
+    reels: [
+      { src: '/reels/r6.mp4', poster: '/reels/r6.jpg', portrait: false, tag: 'Doors', tone: 'after' },
+      { src: '/reels/r8.mp4', poster: '/reels/r8.jpg', portrait: true, tag: 'Fascias' },
+    ],
+  },
+  {
+    title: 'Landing — wallpaper & glass balustrade',
+    reels: [
+      { src: '/reels/r5.mp4', poster: '/reels/r5.jpg', portrait: true, tag: 'Finished' },
+    ],
+  },
 ]
 
 function Reel({ reel }) {
@@ -165,10 +185,27 @@ function Reel({ reel }) {
         loop
         playsInline
         preload="metadata"
-        aria-label={reel.label}
+        aria-label={reel.tag}
       />
-      <figcaption>{reel.label}</figcaption>
+      {reel.tag && (
+        <figcaption className={`reel__tag ${reel.tone === 'after' ? 'reel__tag--after' : ''} ${reel.tone === 'before' ? 'reel__tag--before' : ''}`}>
+          {reel.tag}
+        </figcaption>
+      )}
     </figure>
+  )
+}
+
+function Job({ job }) {
+  return (
+    <article className="job">
+      <div className="job__media">
+        {job.reels.map((r) => (
+          <Reel reel={r} key={r.src} />
+        ))}
+      </div>
+      <h4 className="job__title">{job.title}</h4>
+    </article>
   )
 }
 
@@ -203,11 +240,11 @@ export default function Portfolio() {
         <div className="folio__reels">
           <h3 data-rv="up">Straight from the jobs</h3>
           <p className="folio__reelsub" data-rv="up">
-            Filmed on site, on real jobs — prep and all.
+            Filmed on site, on real jobs — grouped by job, prep and all.
           </p>
-          <div className="folio__reelgrid" data-rv="stagger">
-            {REELS.map((r) => (
-              <Reel reel={r} key={r.src} />
+          <div className="folio__jobs" data-rv="stagger">
+            {JOBS.map((j) => (
+              <Job job={j} key={j.title} />
             ))}
           </div>
         </div>

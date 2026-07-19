@@ -171,29 +171,44 @@
   color: #8b8b94;
 }
 
-.folio__reelgrid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(0, 1fr));
-  grid-auto-flow: dense;
-  gap: 1rem;
+.folio__jobs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: clamp(1.5rem, 3vw, 2.5rem);
+  align-items: flex-start;
 }
 
+.job__media {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.8rem;
+}
+
+.job__title {
+  margin-top: 0.8rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: #b9b9c2;
+  letter-spacing: 0.01em;
+}
+
+/* reels are sized by a shared height, so pairs sit flush together
+   whatever their orientation */
 .reel {
   position: relative;
   margin: 0;
+  height: clamp(240px, 26vw, 360px);
+  aspect-ratio: 9 / 16;
   border-radius: 12px;
   overflow: hidden;
   background: var(--coal-3);
   border: 1px solid #2c2a30;
-  aspect-ratio: 9 / 16;
   cursor: pointer;
   transition: transform 0.3s ease, border-color 0.3s ease;
 }
 
 .reel--wide {
-  grid-column: span 2;
   aspect-ratio: 16 / 9;
-  align-self: start;
 }
 
 .reel:hover {
@@ -210,40 +225,37 @@
   display: block;
 }
 
-.reel figcaption {
+.reel__tag {
   position: absolute;
+  top: 10px;
   left: 10px;
-  right: 10px;
-  bottom: 10px;
   z-index: 2;
   font-family: var(--font-display);
-  font-size: 0.7rem;
+  font-size: 0.66rem;
   font-weight: 600;
-  line-height: 1.35;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
   color: var(--white);
-  background: rgba(10, 9, 11, 0.66);
+  background: rgba(10, 9, 11, 0.7);
   backdrop-filter: blur(4px);
-  border-radius: 8px;
-  padding: 0.4rem 0.6rem;
+  border-radius: 999px;
+  padding: 0.3rem 0.65rem;
 }
 
-@media (max-width: 980px) {
-  .folio__reelgrid {
-    grid-template-columns: repeat(3, minmax(0, 1fr));
-  }
+.reel__tag--after {
+  background: var(--pink);
+}
+
+.reel__tag--before {
+  background: rgba(10, 9, 11, 0.82);
 }
 
 @media (max-width: 640px) {
-  .folio__reelgrid {
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 0.7rem;
+  .reel {
+    height: clamp(190px, 46vw, 240px);
   }
 
-  .reel--wide {
-    grid-column: span 2;
-  }
-
-  .reel figcaption {
-    font-size: 0.62rem;
+  .job__title {
+    font-size: 0.84rem;
   }
 }
