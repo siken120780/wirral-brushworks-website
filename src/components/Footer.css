@@ -49,6 +49,23 @@
   color: #77777f;
 }
 
+.foot__credit {
+  margin-top: 0.4rem;
+  font-size: 0.98rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.foot__credit a {
+  color: var(--pink);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.foot__credit a:hover {
+  color: var(--white);
+}
+
 @media (max-width: 720px) {
   .foot__grid {
     grid-template-columns: 1fr;
