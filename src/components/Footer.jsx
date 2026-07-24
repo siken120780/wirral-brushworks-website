@@ -29,6 +29,7 @@ export default function Footer() {
 
       <div className="wrap foot__base">
         <span>© 2026 Wirral Brushworks. All rights reserved.</span>
+        <p className="foot__credit">Website designed & built by <a href="https://meridiagrowth.co.uk" target="_blank" rel="noopener noreferrer">Meridia Growth</a></p>
       </div>
     </footer>
   )
